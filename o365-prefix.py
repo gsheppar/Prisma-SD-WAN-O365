@@ -78,6 +78,7 @@ def o365(cgx):
     
     prefix_name = "O365-Prefix"
     
+    ##### path prefix 
     prefix_found = False
     prefix_data = None
     for item in cgx.get.networkpolicyglobalprefixes().cgx_content['items']:
@@ -91,23 +92,87 @@ def o365(cgx):
         
         resp = cgx.post.networkpolicyglobalprefixes(data=data)
         if not resp:
-            print("ERROR creating prefix " + prefix_name)
+            print("ERROR creating path prefix " + prefix_name)
             print(str(jdout(resp)))
         else:
-            print("Creating prefix name " + prefix_name)
+            print("Creating path prefix name " + prefix_name)
     else:
         if ipv4_addresses == prefix_data["ipv4_prefixes"]:
-            print("O365-Prefix are still up to date")
+            print("O365-Prefix path is up to date")
         else:
             data = prefix_data 
             data["ipv4_prefixes"] = ipv4_addresses
         
             resp = cgx.put.networkpolicyglobalprefixes(networkpolicyglobalprefix_id=data["id"],data=data)
             if not resp:
-                print("ERROR updating prefix " + prefix_name)
+                print("ERROR updating path prefix " + prefix_name)
                 print(str(jdout(resp)))
             else:
-                print("Updating prefix name " + prefix_name)
+                print("Updating path prefix name " + prefix_name)
+                
+    ##### security prefix    
+    prefix_found = False
+    prefix_data = None
+    for item in cgx.get.ngfwsecuritypolicyglobalprefixes().cgx_content['items']:
+        if item["name"] == prefix_name:
+            prefix_found = True
+            prefix_data = item
+            
+    
+    if not prefix_found:
+        data = {"name":prefix_name,"tags":[],"ipv4_prefixes":ipv4_addresses,"ipv6_prefixes":[],"description":None}
+        
+        resp = cgx.post.ngfwsecuritypolicyglobalprefixes(data=data)
+        if not resp:
+            print("ERROR creating security prefix " + prefix_name)
+            print(str(jdout(resp)))
+        else:
+            print("Creating security prefix name " + prefix_name)
+    else:
+        if ipv4_addresses == prefix_data["ipv4_prefixes"]:
+            print("O365-Prefix security is up to date")
+        else:
+            data = prefix_data 
+            data["ipv4_prefixes"] = ipv4_addresses
+        
+            resp = cgx.put.ngfwsecuritypolicyglobalprefixes(networkpolicyglobalprefix_id=data["id"],data=data)
+            if not resp:
+                print("ERROR updating security prefix " + prefix_name)
+                print(str(jdout(resp)))
+            else:
+                print("Updating security prefix name " + prefix_name)
+    
+    ##### qos prefix    
+    prefix_found = False
+    prefix_data = None
+    for item in cgx.get.prioritypolicyglobalprefixes().cgx_content['items']:
+        if item["name"] == prefix_name:
+            prefix_found = True
+            prefix_data = item
+            
+    
+    if not prefix_found:
+        data = {"name":prefix_name,"tags":[],"ipv4_prefixes":ipv4_addresses,"ipv6_prefixes":[],"description":None}
+        
+        resp = cgx.post.prioritypolicyglobalprefixes(data=data)
+        if not resp:
+            print("ERROR creating QoS prefix " + prefix_name)
+            print(str(jdout(resp)))
+        else:
+            print("Creating QoS prefix name " + prefix_name)
+    else:
+        if ipv4_addresses == prefix_data["ipv4_prefixes"]:
+            print("O365-Prefix QoS is up to date")
+        else:
+            data = prefix_data 
+            data["ipv4_prefixes"] = ipv4_addresses
+        
+            resp = cgx.put.prioritypolicyglobalprefixes(networkpolicyglobalprefix_id=data["id"],data=data)
+            if not resp:
+                print("ERROR updating QoS prefix " + prefix_name)
+                print(str(jdout(resp)))
+            else:
+                print("Updating QoS prefix name " + prefix_name)
             
     
     return
@@ -178,6 +243,7 @@ def go():
     curtime_str = datetime.utcnow().strftime('%Y-%m-%d-%H-%M-%S')
 
     cgx = cgx_session
+    o365(cgx)
 
     schedule.every(5).minutes.do(o365, cgx)
     while True:

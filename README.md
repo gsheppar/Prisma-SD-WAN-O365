@@ -1,5 +1,5 @@
 # Prisma SD-WAN O365 Global Prefix Sync (Preview)
-The purpose of this script is to download a list of IPv4 prefixes from O365 endpoint list and populate them as a Path Global Prefix. 
+The purpose of this script is to download a list of IPv4 prefixes from O365 endpoint list and populate them as a Path/Security/QoS Global Prefix. 
 
 #### License
 MIT
