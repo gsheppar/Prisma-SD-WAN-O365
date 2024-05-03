@@ -173,6 +173,39 @@ def o365(cgx):
                 print(str(jdout(resp)))
             else:
                 print("Updating QoS prefix name " + prefix_name)
+    
+    ##### global prefix    
+    prefix_found = False
+    prefix_data = None
+    for item in cgx.get.globalprefixfilters().cgx_content['items']:
+        if item["name"] == prefix_name:
+            prefix_found = True
+            prefix_data = item
+            
+    
+    if not prefix_found:
+        data = {"name":prefix_name,"filters":[{"type":"ipv4","ip_prefixes":ipv4_addresses}],"description":None}
+
+        
+        resp = cgx.post.globalprefixfilters(data=data)
+        if not resp:
+            print("ERROR creating global prefix " + prefix_name)
+            print(str(jdout(resp)))
+        else:
+            print("Creating global prefix name " + prefix_name)
+    else:
+        if ipv4_addresses == prefix_data["filters"][0]["ip_prefixes"]:
+            print("O365-Prefix global is up to date")
+        else:
+            data = prefix_data 
+            data["ipv4_prefixes"] = ipv4_addresses
+        
+            resp = cgx.put.globalprefixfilters(networkpolicyglobalprefix_id=data["id"],data=data)
+            if not resp:
+                print("ERROR updating global prefix " + prefix_name)
+                print(str(jdout(resp)))
+            else:
+                print("Updating global prefix name " + prefix_name)
             
     
     return
