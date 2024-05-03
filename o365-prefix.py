@@ -24,7 +24,7 @@ import time
 TIME_BETWEEN_API_UPDATES = 60       # seconds
 REFRESH_LOGIN_TOKEN_INTERVAL = 7    # hours
 SDK_VERSION = cloudgenix.version
-SCRIPT_NAME = 'CloudGenix: Example syslog script'
+SCRIPT_NAME = 'CloudGenix: O365 Script'
 SCRIPT_VERSION = "v1"
 
 # Set NON-SYSLOG logging to use function name
