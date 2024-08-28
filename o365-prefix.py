@@ -135,7 +135,7 @@ def o365(cgx):
             data = prefix_data 
             data["ipv4_prefixes"] = ipv4_addresses
         
-            resp = cgx.put.ngfwsecuritypolicyglobalprefixes(ngfwsecuritypolicyglobalprefixes_id=data["id"],data=data)
+            resp = cgx.put.ngfwsecuritypolicyglobalprefixes(ngfwsecuritypolicyglobalprefix_id=data["id"],data=data)
             if not resp:
                 print("ERROR updating security prefix " + prefix_name)
                 print(str(jdout(resp)))
@@ -167,7 +167,7 @@ def o365(cgx):
             data = prefix_data 
             data["ipv4_prefixes"] = ipv4_addresses
         
-            resp = cgx.put.prioritypolicyglobalprefixes(prioritypolicyglobalprefixes_id=data["id"],data=data)
+            resp = cgx.put.prioritypolicyglobalprefixes(prioritypolicyglobalprefix_id=data["id"],data=data)
             if not resp:
                 print("ERROR updating QoS prefix " + prefix_name)
                 print(str(jdout(resp)))
@@ -198,9 +198,9 @@ def o365(cgx):
             print("O365-Prefix global is up to date")
         else:
             data = prefix_data 
-            data["ipv4_prefixes"] = ipv4_addresses
+            data["filters"][0]["ip_prefixes"] = ipv4_addresses
         
-            resp = cgx.put.globalprefixfilters(globalprefixfilters_id=data["id"],data=data)
+            resp = cgx.put.globalprefixfilters(globalprefixfilter_id=data["id"],data=data)
             if not resp:
                 print("ERROR updating global prefix " + prefix_name)
                 print(str(jdout(resp)))
