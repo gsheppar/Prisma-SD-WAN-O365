@@ -5,7 +5,7 @@ The purpose of this script is to download a list of IPv4 prefixes from O365 endp
 MIT
 
 #### Requirements
-* Active CloudGenix Account - Please generate your API token and add it to cloudgenix_settings.py
+* Active Prisma Account - Please generate your service account prismasase_settings.py
 * Python >=3.7
 
 #### Installation:
