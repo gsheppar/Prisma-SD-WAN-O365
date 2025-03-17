@@ -1,8 +1,8 @@
-certifi==2023.11.17
-charset-normalizer==3.3.2
-cloudgenix==6.2.3b1
-idna==3.6
-requests==2.31.0
-schedule==1.2.1
-urllib3==1.26.16
-websockets==12.0
+certifi==2025.1.31
+charset-normalizer==3.4.1
+idna==3.10
+prisma_sase==6.5.2b1
+requests==2.32.3
+schedule==1.2.2
+urllib3==2.3.0
+websockets==15.0.1
